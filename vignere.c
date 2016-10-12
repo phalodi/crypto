@@ -19,9 +19,18 @@ int main(int argc, char* argv[]){
 	int k,i;
 	bool b=true;
 
-	// 
-
+	// check if the arguments are as required in the question
 	if(argc==2){
+		int ctr;
+		for(ctr=0;argv[1][ctr]!='\0';ctr++)
+			if (!isalpha(argv[1][ctr])){
+				b=false;
+				break;
+			}
+	}
+	else b=false;
+
+	if(b){
 		k=atoi(argv[1])%26;
 		char *a = (char*)malloc(MAX_LEN * sizeof(char));
 		scanf(" %[^\n]s",a);

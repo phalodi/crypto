@@ -5,7 +5,7 @@
 
 #define MAX_LEN 1001 // Assuming the maximum length of the string to be 1000 + space for null '\0' character
 
-char caesar(char val, char key){
+char caesar(char val, int key){
 	if(islower(val))
 		return (val+key-'a')%26 +'a';
 	else if(isupper(val))

@@ -1,53 +1,53 @@
-#include<stdio.h>
-#include<cs50.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdbool.h>
 
-int main(int argc,string argv[])
-{
-if(argc==2)
-{
-string k=argv[1];
-int d=strlen(k);
-for(int i=0;i<d;i++)
-{
-if(!((k[i]>='a' && k[i]<='z')||(k[i]>='A' && k[i]<='Z')))
-{
-printf("invalid key\n");
-return 1;
-}
+#define MAX_LEN 1001 // Assuming the maximum length of the string to be 1000 + space for null '\0' character
+
+char caesar(char val, char k){
+	int key;
+	key = (isupper(k)) ? (k-'A') : (k-'a');
+	if(islower(val))
+		return (val+key-'a')%26 +'a';
+	return(val+key-'A')%26 +'A';
 }
 
-string p=GetString();
-int j=0,c;
-for(int i=0;i<strlen(p);i++)
-{
-int k1=k[j];
-if(k1>=97)
-c=(k1-97);
-else
-c=(k1-65);
-if(p[i]>='A' && p[i]<='Z')
-{
-p[i]='A'+((p[i]-65)+c)%26;
-j++;
-}
-else if(p[i]>='a' && p[i]<='z')
-{
-p[i]='a'+((p[i]-97)+c)%26;
-j++;
+
+int main(int argc, char* argv[]){
+	int k,i,j;
+	bool b=true;
+
+	// check if the arguments are as required in the question
+	if(argc==2){
+		int ctr;
+		for(ctr=0;argv[1][ctr]!='\0';ctr++)
+			if (!isalpha(argv[1][ctr])){
+				b=false;
+				break;
+			}
+	}
+	else b=false;
+
+	if(b){
+		char *a = (char*)malloc(MAX_LEN * sizeof(char));
+		scanf(" %[^\n]s",a);
+		int keylen = strlen(argv[1]);
+		i=j=0;
+		for(i=0;i<strlen(a);i++){
+			if(isalpha(a[i])){
+				a[i]=caesar(a[i],argv[1][j]);
+				j++;
+			}
+			if(j==keylen)j=0;
+		}
+		printf("%s\n",a);
+
+	}
+	else{
+		printf("not as per required arguments\n");
+		return 1;
+	}
 }
 
-if(j>=d)
-j=0;
-}
-for(int i=0;i<strlen(p);i++)
-printf("%c",p[i]);
-printf("\n");
-return 0;
-}
-else
-{
-printf("Number of agruments are less or more");
-return 1;
-}
-}

@@ -1,44 +1,35 @@
-#include<stdio.h>
-#include<cs50.h>
-#include<string.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
 
-int main(int argc,string argv[])
-{
-int k;
+#define MAX_LEN 1001 // Assuming the maximum length of the string to be 1000 + space for null '\0' character
 
-if(argc==2)
-{
-k=atoi(argv[1]);
-string s=GetString();
-for(int i=0,n=strlen(s);i<n;i++)
-{
-int c=(s[i]+k);
-if(s[i]>='A' && s[i]<='Z')
-{
-if(c<='Z')
-s[i]=c;
-else
-s[i]='A'+(c-65)%26;
-}
-else if(s[i]>='a' && s[i]<='z')
-{
-if(c<='z')
-s[i]=c;
-else
-s[i]='a'+(c-97)%26;
-}
-}
-for(int i=0,n=strlen(s);i<n;i++)
-printf("%c",s[i]);
-printf("\n");
-return 0;
-}
-else
-{
-printf("not as per required arguments");
-return 1;
-}
+char caesar(char val, int key){
+	if(islower(val))
+		return (val+key-'a')%26 +'a';
+	else if(isupper(val))
+		return(val+key-'A')%26 +'A';
+	return val;
 }
 
+
+int main(int argc, char* argv[]){
+	int k;
+	if(argc==2){
+		k=atoi(argv[1])%26;
+		char *a = (char*)malloc(MAX_LEN * sizeof(char));
+		scanf(" %[^\n]s",a);
+		int i=0;
+		for(i;i<strlen(a);i++){
+			a[i]=caesar(a[i],k);
+		}
+		printf("%s\n",a);
+
+	}
+	else{
+		printf("not as per required arguments\n");
+		return 1;
+	}
+}
 

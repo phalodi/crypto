@@ -6,17 +6,17 @@
 
 #define MAX_LEN 1001 // Assuming the maximum length of the string to be 1000 + space for null '\0' character
 
-char caesar(char val, char key){
+char caesar(char val, char k){
+	int key;
+	key = (isupper(k)) ? (k-'A') : (k-'a');
 	if(islower(val))
 		return (val+key-'a')%26 +'a';
-	else if(isupper(val))
-		return(val+key-'A')%26 +'A';
-	return val;
+	return(val+key-'A')%26 +'A';
 }
 
 
 int main(int argc, char* argv[]){
-	int k,i;
+	int k,i,j;
 	bool b=true;
 
 	// check if the arguments are as required in the question
@@ -31,12 +31,16 @@ int main(int argc, char* argv[]){
 	else b=false;
 
 	if(b){
-		k=atoi(argv[1])%26;
 		char *a = (char*)malloc(MAX_LEN * sizeof(char));
 		scanf(" %[^\n]s",a);
-		i=0;
-		for(i;i<strlen(a);i++){
-			a[i]=caesar(a[i],k);
+		int keylen = strlen(argv[1]);
+		i=j=0;
+		for(i=0;i<strlen(a);i++){
+			if(isalpha(a[i])){
+				a[i]=caesar(a[i],argv[1][j]);
+				j++;
+			}
+			if(j==keylen)j=0;
 		}
 		printf("%s\n",a);
 

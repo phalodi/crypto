@@ -1,6 +1,6 @@
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 int main(int argc, char **argv)
 {
@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 	if(argc==2)
 	{
 		k=atoi(argv[1]);
-		string s=GetString();
+		char *s=GetString();
 		for(int i=0,n=strlen(s);i<n;i++)
 		{
 			int c=(s[i]+k);

@@ -1,44 +1,36 @@
-#include<stdio.h>
-#include<cs50.h>
-#include<string.h>
-#include<stdlib.h>
-
-int main(int argc,string argv[])
-{
-int k;
-
-if(argc==2)
-{
-k=atoi(argv[1]);
-string s=GetString();
-for(int i=0,n=strlen(s);i<n;i++)
-{
-int c=(s[i]+k);
-if(s[i]>='A' && s[i]<='Z')
-{
-if(c<='Z')
-s[i]=c;
-else
-s[i]='A'+(c-65)%26;
-}
-else if(s[i]>='a' && s[i]<='z')
-{
-if(c<='z')
-s[i]=c;
-else
-s[i]='a'+(c-97)%26;
-}
-}
-for(int i=0,n=strlen(s);i<n;i++)
-printf("%c",s[i]);
-printf("\n");
-return 0;
-}
-else
-{
-printf("not as per required arguments");
-return 1;
-}
-}
-
-
+#include <iostream> 
+using namespace std; 
+  
+// This function receives text and shift and 
+// returns the encrypted text 
+string encrypt(string text, int s) 
+{ 
+    string result = ""; 
+  
+    // traverse text 
+    for (int i=0;i<text.length();i++) 
+    { 
+        // apply transformation to each character 
+        // Encrypt Uppercase letters 
+        if (isupper(text[i])) 
+            result += char(int(text[i]+s-65)%26 +65); 
+  
+    // Encrypt Lowercase letters 
+    else
+        result += char(int(text[i]+s-97)%26 +97); 
+    } 
+  
+    // Return the resulting string 
+    return result; 
+} 
+  
+// Driver program to test the above function 
+int main() 
+{ 
+    string text="ATTACKATONCE"; 
+    int s = 4; 
+    cout << "Text : " << text; 
+    cout << "\nShift: " << s; 
+    cout << "\nCipher: " << encrypt(text, s); 
+    return 0; 
+} 
